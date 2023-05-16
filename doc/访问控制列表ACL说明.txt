@@ -1,0 +1,28 @@
+访问控制列表 ACL=DACL+SACL
+
+API: ConvertStringSecurityDescriptorToSecurityDescriptor
+
+例子: "O:SYD:P(A;;GA;;;SY)(A;;GA;;;BA)S:(ML;;NWNRNX;;;HI)"
+
+https://learn.microsoft.com/en-us/windows/win32/secauthz/security-descriptor-string-format
+O:owner_sid
+G:group_sid
+D:dacl_flags(string_ace1)(string_ace2)... (string_acen)
+S:sacl_flags(string_ace1)(string_ace2)... (string_acen)
+
+dacl_flags:
+"P"	SDDL_PROTECTED	The SE_DACL_PROTECTED flag is set.
+
+https://learn.microsoft.com/en-us/windows/win32/secauthz/sid-strings
+"SY" SDDL_LOCAL_SYSTEM Local system. The corresponding RID is SECURITY_LOCAL_SYSTEM_RID.
+
+https://learn.microsoft.com/en-us/windows/win32/secauthz/ace-strings
+ace_type;ace_flags;rights;object_guid;inherit_object_guid;account_sid;(resource_attribute)
+ace_type "A"	SDDL_ACCESS_ALLOWED	ACCESS_ALLOWED_ACE_TYPE
+rights "GA"	SDDL_GENERIC_ALL	GENERIC_ALL
+account_sid "SY" SDDL_LOCAL_SYSTEM Local system. The corresponding RID is SECURITY_LOCAL_SYSTEM_RID.
+account_sid "BA" SDDL_BUILTIN_ADMINISTRATORS Built-in administrators. The corresponding RID is DOMAIN_ALIAS_RID_ADMINS.
+
+ace_type "ML"	SDDL_MANDATORY_LABEL	SYSTEM_MANDATORY_LABEL_ACE_TYPE Windows Server 2003: Not available.
+rights "NW"	SDDL_NO_WRITE_UP	SYSTEM_MANDATORY_LABEL_NO_WRITE_UP
+account_sid "HI" SDDL_ML_HIGH High integrity level. The corresponding RID is SECURITY_MANDATORY_HIGH_RID. 
